@@ -14,6 +14,7 @@ public:
 
 	Vector2 operator+(const Vector2& v);
 	Vector2 operator-(const Vector2& v);
+	Vector2 operator+=(const Vector2& v);
 };
 
 

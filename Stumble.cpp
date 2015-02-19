@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include <iostream>
-#include "Vector2.h"
+
 
 
 int main(int argc, _TCHAR* argv[])
