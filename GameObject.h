@@ -1,6 +1,8 @@
 #pragma once
-#include "SFML/Graphics.hpp"
+#include "core.h"
 #include "Vector2.h"
+#include "Canvas.h"
+
 class GameObject
 {
 	
@@ -13,7 +15,7 @@ public:
 
 	void update();
 	virtual void step() = 0;
-	virtual void draw(sf::Image*) = 0; //draw(Canvas*);
+	virtual void draw(Canvas*) = 0;
 	
 };
 

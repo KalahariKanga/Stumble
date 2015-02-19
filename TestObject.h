@@ -7,6 +7,6 @@ public:
 	TestObject();
 	~TestObject();
 	void step();
-	void draw(sf::Image* i);
+	virtual void draw(Canvas* c);
 };
 

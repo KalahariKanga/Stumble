@@ -1,12 +1,14 @@
 #pragma once
 #include "GameObject.h"
+#include "Canvas.h"
 class Game
 {
 	std::vector<GameObject*> store;
 	sf::RenderWindow window;
 	sf::Texture tex;
 	sf::Sprite sprite;
-	sf::Image image;
+	Canvas* canvas;
+
 public:
 	Game();
 	~Game();

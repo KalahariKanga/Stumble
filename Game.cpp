@@ -6,10 +6,7 @@
 Game::Game()
 {
 	window.create(sf::VideoMode(640, 480), "Window");
-	image.create(640, 480);
-	tex.loadFromImage(image);
-	sprite.setTexture(tex);
-	
+	canvas = new Canvas(640, 480);
 }
 
 
@@ -25,16 +22,15 @@ void Game::addGameObject(GameObject* g)
 
 void Game::update()
 {
-	for (int cx = 0; cx < 640; cx++)
-		for (int cy = 0; cy < 480; cy++)
-			image.setPixel(cx, cy, sf::Color(0, 0, 0));
+	canvas->setDrawColour(sf::Color::Black);
+	canvas->clear();
 	
 	for (auto c : store)
 		c->update();
 	for (auto c : store)
-		c->draw(&image);
+		c->draw(canvas);
 
-	tex.loadFromImage(image);
+	tex.loadFromImage(*(canvas->getImage()));
 	sprite.setTexture(tex);
 	window.draw(sprite);
 	window.display();

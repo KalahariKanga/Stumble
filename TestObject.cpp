@@ -20,11 +20,10 @@ void TestObject::step()
 	velocity.setDirection(velocity.getDirection() + 0.01);
 }
 
-void TestObject::draw(sf::Image* i)
+void TestObject::draw(Canvas* c)
 {
-	for (int c = -8; c <= 8; c++)
-	{
-		i->setPixel(position.x, position.y + c, sf::Color::White);
-		i->setPixel(position.x + c, position.y, sf::Color::White);
-	}
+	c->setDrawColour(sf::Color::Red);
+	c->drawLine(position.x - 8, position.y, position.x + 8, position.y);
+	c->drawLine(position.x, position.y - 8, position.x, position.y + 8);
+	c->drawPoint(position.x, position.y, sf::Color::Red);
 }
