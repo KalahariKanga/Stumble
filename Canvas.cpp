@@ -10,6 +10,7 @@ Canvas::Canvas()
 Canvas::Canvas(int width, int height)
 {
 	drawColour = sf::Color::Red;
+	alpha = 1;
 	image = new sf::Image();
 	image->create(width, height);
 }
@@ -28,11 +29,33 @@ void Canvas::setDrawColour(sf::Color c)
 	drawColour = c;
 }
 
+void Canvas::setDrawAlpha(float a)
+{
+	alpha = clamp(a, 0, 1);
+}
+
+void Canvas::drawPoint(int x, int y)
+{
+	drawPoint(x, y, drawColour);
+}
+
 void Canvas::drawPoint(int x, int y, sf::Color col)
 {
 	if (x < 0 || x > image->getSize().x || y < 0 || y > image->getSize().y)
 		return;
-	image->setPixel(x, y, col);
+	if (alpha < 1)
+	{
+		sf::Color oldcol = image->getPixel(x, y);
+		sf::Color newcol;
+		newcol.r = oldcol.r + alpha*(col.r - oldcol.r);
+		newcol.g = oldcol.g + alpha*(col.g - oldcol.g);
+		newcol.b = oldcol.b + alpha*(col.b - oldcol.b);
+		image->setPixel(x, y, newcol);
+	}
+	else
+	{
+		image->setPixel(x, y, col);
+	}
 }
 
 void Canvas::drawLine(int x1, int y1, int x2, int y2)
@@ -117,6 +140,35 @@ void Canvas::drawLine(int x1, int y1, int x2, int y2)
 			}
 			drawPoint(x, y, drawColour);
 		}
+	}
+}
+
+void Canvas::drawCircle(int x, int y, int r, bool outline)
+{
+	if (outline)
+	{
+		float jump = (2 * PI) / 32;
+		for (int c = 0; c < 32; c++)
+		{
+			drawLine(x + r*cos(c*jump), y + r*sin(c*jump), x + r*cos((c + 1)*jump), y + r*sin((c + 1)*jump));
+		}
+	}
+}
+
+void Canvas::drawRectangle(int x1, int y1, int x2, int y2, bool outline)
+{
+	if (outline)
+	{
+		drawLine(x1, y1, x2, y1);
+		drawLine(x2, y1, x2, y2);
+		drawLine(x1, y2, x2, y2);
+		drawLine(x1, y1, x1, y2);
+	}
+	else
+	{
+		for (int cx = x1; cx <= x2; cx++)
+			for (int cy = y1; cy <= y2; cy++)
+				drawPoint(cx, cy);
 	}
 }
 

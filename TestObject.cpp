@@ -23,7 +23,10 @@ void TestObject::step()
 void TestObject::draw(Canvas* c)
 {
 	c->setDrawColour(sf::Color::Red);
-	c->drawLine(position.x - 8, position.y, position.x + 8, position.y);
-	c->drawLine(position.x, position.y - 8, position.x, position.y + 8);
-	c->drawPoint(position.x, position.y, sf::Color::Red);
+	c->setDrawAlpha(1);
+	c->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
+	c->setDrawColour(sf::Color::Blue);
+	c->setDrawAlpha(0.5);
+	c->drawRectangle(position.x - 16, position.y - 16, position.x + 16, position.y + 16, 0);
+
 }
