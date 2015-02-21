@@ -22,6 +22,7 @@ void Game::addGameObject(GameObject* g)
 
 void Game::update()
 {
+	time.Zero;
 	canvas->setDrawColour(sf::Color::Black);
 	canvas->clear();
 	
@@ -34,4 +35,5 @@ void Game::update()
 	sprite.setTexture(tex);
 	window.draw(sprite);
 	window.display();
+	std::this_thread::sleep_for(std::chrono::milliseconds((int)(1000*((float)(1/fps)-time.asSeconds()))));//no
 }

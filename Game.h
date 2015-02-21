@@ -8,7 +8,8 @@ class Game
 	sf::Texture tex;
 	sf::Sprite sprite;
 	Canvas* canvas;
-
+	const int fps = 60;
+	sf::Time time;
 public:
 	Game();
 	~Game();
