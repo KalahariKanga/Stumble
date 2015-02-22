@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Canvas.h"
+#include "Scene.h"
 class Game
 {
 	std::vector<GameObject*> store;

@@ -26,6 +26,18 @@ void Game::update()
 	canvas->setDrawColour(sf::Color::Black);
 	canvas->clear();
 	
+	for (int i = 0; i < store.size(); i++)
+		for (int j = i+1; j < store.size(); j++)
+		{
+			if (store[i]->hasMask && store[j]->hasMask)
+			{
+				if (store[i]->mask->checkCollision(store[j]->mask))
+				{
+					store[i]->onCollision(store[j]);
+					store[j]->onCollision(store[i]);
+				}
+			}
+		}
 	for (auto c : store)
 		c->update();
 	for (auto c : store)

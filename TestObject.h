@@ -8,5 +8,6 @@ public:
 	~TestObject();
 	void step();
 	virtual void draw(Canvas* c);
+	virtual void onCollision(GameObject*);
 };
 

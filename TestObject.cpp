@@ -8,6 +8,9 @@ TestObject::TestObject()
 	position.y = 240;
 	velocity.x = 0.1;
 	velocity.y = 0.1;
+	hasMask = 1;
+	mask = new MaskRectangle(position.x, position.y, position.x + 32, position.y + 32);
+
 }
 
 
@@ -26,7 +29,9 @@ void TestObject::draw(Canvas* c)
 	c->setDrawAlpha(1);
 	c->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
 	c->setDrawColour(sf::Color::Blue);
-	c->setDrawAlpha(0.5);
-	c->drawRectangle(position.x - 16, position.y - 16, position.x + 16, position.y + 16, 0);
+}
+
+void TestObject::onCollision(GameObject*)
+{
 
 }
