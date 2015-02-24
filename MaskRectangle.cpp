@@ -30,3 +30,11 @@ bool MaskRectangle::checkCollision(Mask* other)
 	}
 	return 0;
 }
+
+void MaskRectangle::translate(float x, float y)
+{
+	x1 += x;
+	x2 += x;
+	y1 += y;
+	y2 += y;
+}

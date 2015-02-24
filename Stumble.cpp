@@ -8,9 +8,11 @@
 
 int main(int argc, _TCHAR* argv[])
 {
+	srand(time(0));
 	Game game;
-	TestObject t;
-	game.addGameObject(&t);
+	TestObject t[2];
+	game.addGameObject(t);
+	game.addGameObject(&t[1]);
 	while (1)
 		game.update();
 	return 0;

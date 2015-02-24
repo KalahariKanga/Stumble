@@ -6,7 +6,8 @@ public:
 	Mask();
 	~Mask();
 	int shape;
-	int x1, y1, x2, y2; 
+	float x1, y1, x2, y2; 
 	virtual bool checkCollision(Mask*) = 0;
+	virtual void translate(float, float) = 0;
 };
 

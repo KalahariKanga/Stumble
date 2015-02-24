@@ -16,7 +16,14 @@ public:
 	Mask* mask;
 	bool hasMask = 0;
 
+	template<class type> bool isType()
+	{
+		if (dynamic_cast<type>(this))
+			return 1;
+		return 0;
+	};
 	void update();
+
 	virtual void step() = 0;
 	virtual void draw(Canvas*) = 0;
 	virtual void onCollision(GameObject*) = 0;

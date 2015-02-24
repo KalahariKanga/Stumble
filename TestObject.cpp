@@ -4,10 +4,10 @@
 
 TestObject::TestObject()
 {
-	position.x = 320;
-	position.y = 240;
-	velocity.x = 0.1;
-	velocity.y = 0.1;
+	position.x = rand() % 640;
+	position.y = rand() % 480;
+	velocity.setLength(1);
+	velocity.setDirection((float)rand() / 1000);
 	hasMask = 1;
 	mask = new MaskRectangle(position.x, position.y, position.x + 32, position.y + 32);
 
@@ -20,7 +20,14 @@ TestObject::~TestObject()
 
 void TestObject::step()
 {
-	velocity.setDirection(velocity.getDirection() + 0.01);
+	if (position.x < 0)
+		position.x = 640;
+	if (position.x > 640)
+		position.x = 0;
+	if (position.y < 0)
+		position.y = 480;
+	if (position.y > 480)
+		position.y = 0;
 }
 
 void TestObject::draw(Canvas* c)
@@ -31,7 +38,10 @@ void TestObject::draw(Canvas* c)
 	c->setDrawColour(sf::Color::Blue);
 }
 
-void TestObject::onCollision(GameObject*)
+void TestObject::onCollision(GameObject* other)
 {
-
+	if (other->isType<TestObject*>())
+	{
+		velocity.setDirection(velocity.getDirection() + PI);
+	}
 }
