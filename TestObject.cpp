@@ -9,7 +9,7 @@ TestObject::TestObject()
 	velocity.setLength(1);
 	velocity.setDirection((float)rand() / 1000);
 	hasMask = 1;
-	mask = new MaskRectangle(position.x, position.y, position.x + 32, position.y + 32);
+	mask = new MaskRectangle(position.x, position.y, 16, 16);
 
 }
 
