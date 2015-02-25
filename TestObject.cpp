@@ -45,3 +45,14 @@ void TestObject::onCollision(GameObject* other)
 		velocity.setDirection(velocity.getDirection() + PI);
 	}
 }
+
+void TestObject::onEvent(sf::Event* e)
+{
+	if (e->type == sf::Event::KeyPressed)
+	{
+		if (e->key.code == sf::Keyboard::Up)
+			velocity.setLength(velocity.getLength() + 0.1);
+		if (e->key.code == sf::Keyboard::Down)
+			velocity.setLength(velocity.getLength() - 0.1);
+	}
+}

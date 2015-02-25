@@ -27,6 +27,7 @@ public:
 	virtual void step() = 0;
 	virtual void draw(Canvas*) = 0;
 	virtual void onCollision(GameObject*) = 0;
+	virtual void onEvent(sf::Event*) = 0;
 	
 };
 

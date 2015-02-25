@@ -26,6 +26,14 @@ void Game::update()
 	canvas->setDrawColour(sf::Color::Black);
 	canvas->clear();
 	
+	sf::Event event;
+	while (window.pollEvent(event))
+	{
+		for (auto c : store)
+			c->onEvent(&event);
+	}
+	for (auto c : store)
+		c->update();
 	for (int i = 0; i < store.size(); i++)
 		for (int j = i+1; j < store.size(); j++)
 		{
@@ -38,8 +46,7 @@ void Game::update()
 				}
 			}
 		}
-	for (auto c : store)
-		c->update();
+	
 	for (auto c : store)
 		c->draw(canvas);
 
