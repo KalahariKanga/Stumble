@@ -28,7 +28,11 @@ bool MaskRectangle::checkCollision(Mask* other)
 	}
 	if (other->shape == MASK_SHAPE_CIRCLE)
 	{
-
+		float nearestX = clamp(other->x,x-xr,x+xr);
+		float nearestY = clamp(other->y,y-yr,y+yr);
+		float dx = nearestX - other->x;
+		float dy = nearestY - other->y;
+		return dx*dx + dy*dy < other->r*other->r;
 	}
 	return 0;
 }
