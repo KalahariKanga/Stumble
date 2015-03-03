@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MaskCircle.h"
+#include "MaskRectangle.h"
 #include "Vector2.h"
 
 MaskCircle::MaskCircle(int x, int y, int r)
@@ -19,8 +20,9 @@ bool MaskCircle::checkCollision(Mask* other)
 {
 	if (other->shape == MASK_SHAPE_RECTANGLE)
 	{
-		float nearestX = clamp(x,other->x-other->xr,other->x+other->xr);
-		float nearestY = clamp(y,other->y-other->yr,other->y+other->yr);
+		MaskRectangle* o = (MaskRectangle*)other;
+		float nearestX = clamp(x, o->x - o->xr, o->x + o->xr);
+		float nearestY = clamp(y, o->y - o->yr, o->y + o->yr);
 		float dx = nearestX - x;
 		float dy = nearestY - y;
 		return dx*dx + dy*dy < r*r;
