@@ -5,6 +5,7 @@
 class Game
 {
 	std::vector<GameObject*> store;
+	std::vector<GameObject*> tempstore;
 	sf::RenderWindow window;
 	sf::Texture tex;
 	sf::Sprite sprite;

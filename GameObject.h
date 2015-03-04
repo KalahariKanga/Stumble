@@ -12,7 +12,8 @@ public:
 	~GameObject();
 	std::string name;
 	Vector2 position, velocity;
-	std::vector<GameObject*>* store;
+	static std::vector<GameObject*>* store;
+	static std::vector<GameObject*>* tempstore;
 	Mask* mask;
 	bool hasMask = 0;
 
@@ -29,5 +30,6 @@ public:
 	virtual void onCollision(GameObject*) = 0;
 	virtual void onEvent(sf::Event*) = 0;
 	
+	void createInstance(GameObject*);
 };
 

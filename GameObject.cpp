@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "GameObject.h"
 
+std::vector<GameObject*>* GameObject::store;
+std::vector<GameObject*>* GameObject::tempstore;
 
 GameObject::GameObject()
 {
@@ -17,4 +19,9 @@ void GameObject::update()
 	mask->x = position.x;
 	mask->y = position.y;
 	step();
+}
+
+void GameObject::createInstance(GameObject* o)
+{
+	tempstore->push_back(o);
 }
