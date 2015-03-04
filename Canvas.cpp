@@ -10,9 +10,9 @@ Canvas::Canvas()
 Canvas::Canvas(int width, int height)
 {
 	drawColour = sf::Color::Red;
-	alpha = 1;
 	image = new sf::Image();
 	image->create(width, height);
+	setDrawAlpha(255);
 }
 
 Canvas::~Canvas()
@@ -24,6 +24,13 @@ sf::Image* Canvas::getImage()
 	return image;
 }
 
+sf::Color Canvas::getPoint(int x, int y)
+{
+	if (x < 0 || x >= image->getSize().x || y < 0 || y >= image->getSize().y)
+		return sf::Color::Black; //TODO: wrap or extend or something
+	return image->getPixel(x, y);
+}
+
 void Canvas::setDrawColour(sf::Color c)
 {
 	drawColour = c;
@@ -31,7 +38,7 @@ void Canvas::setDrawColour(sf::Color c)
 
 void Canvas::setDrawAlpha(float a)
 {
-	alpha = clamp(a, 0, 1);
+	drawColour.a = clamp(a*255, 0, 255);
 }
 
 void Canvas::drawPoint(int x, int y)
@@ -41,16 +48,31 @@ void Canvas::drawPoint(int x, int y)
 
 void Canvas::drawPoint(int x, int y, sf::Color col)
 {
-	if (x < 0 || x > image->getSize().x || y < 0 || y > image->getSize().y)
+	if (x < 0 || x >= image->getSize().x || y < 0 || y >= image->getSize().y)
 		return;
-	if (alpha < 1)
+	if (col.a < 255)
 	{
-		sf::Color oldcol = image->getPixel(x, y);
-		sf::Color newcol;
-		newcol.r = oldcol.r + alpha*(col.r - oldcol.r);
-		newcol.g = oldcol.g + alpha*(col.g - oldcol.g);
-		newcol.b = oldcol.b + alpha*(col.b - oldcol.b);
-		image->setPixel(x, y, newcol);
+		sf::Color dest = image->getPixel(x, y);
+		sf::Color out;
+		float ca = (float)col.a / 255;
+		float da = (float)dest.a / 255;
+		float oa = ca + da*(1 - ca);
+		if (oa > 0)
+		{
+			
+			out.r = (col.r*ca + dest.r*da*(1 - ca)) / oa;
+			out.g = (col.g*ca + dest.g*da*(1 - ca)) / oa;
+			out.b = (col.b*ca + dest.b*da*(1 - ca)) / oa;
+			out.a = oa * 255;
+		}
+		else
+		{
+			out.r = 0;
+			out.g = 0;
+			out.b = 0;
+		}
+
+		image->setPixel(x, y, out);
 	}
 	else
 	{
@@ -170,6 +192,15 @@ void Canvas::drawRectangle(int x1, int y1, int x2, int y2, bool outline)
 			for (int cy = y1; cy <= y2; cy++)
 				drawPoint(cx, cy);
 	}
+}
+
+void Canvas::drawCanvas(Canvas* source, int x, int y)
+{
+	for (int cx = 0; cx < source->getImage()->getSize().x; cx++)
+		for (int cy = 0; cy < source->getImage()->getSize().y; cy++)
+		{
+			drawPoint(x + cx, y + cy, source->getPoint(cx, cy));
+		}
 }
 
 void Canvas::clear()

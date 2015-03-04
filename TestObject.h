@@ -3,6 +3,7 @@
 class TestObject :
 	public GameObject
 {
+	sf::Color col;
 public:
 	TestObject();
 	~TestObject();

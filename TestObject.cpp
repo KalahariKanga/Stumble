@@ -10,7 +10,9 @@ TestObject::TestObject()
 	velocity.setDirection((float)rand() / 1000);
 	hasMask = 1;
 	mask = new MaskRectangle(position.x, position.y, 16, 16);
-
+	col.r = rand() % 256;
+	col.g = rand() % 256;
+	col.b = rand() % 256;
 }
 
 
@@ -32,10 +34,11 @@ void TestObject::step()
 
 void TestObject::draw(Canvas* c)
 {
-	c->setDrawColour(sf::Color::Red);
-	c->setDrawAlpha(1);
+	c->setDrawColour(col);
+	c->setDrawAlpha(0.5);
 	c->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
 	c->setDrawColour(sf::Color::Blue);
+	c->setDrawAlpha(1);
 }
 
 void TestObject::onCollision(GameObject* other)
@@ -54,5 +57,10 @@ void TestObject::onEvent(sf::Event* e)
 			velocity.setLength(velocity.getLength() + 0.1);
 		if (e->key.code == sf::Keyboard::Down)
 			velocity.setLength(velocity.getLength() - 0.1);
+		if (e->key.code == sf::Keyboard::Space)
+		{
+			GameObject* t = new TestObject();
+			createInstance(t);
+		}
 	}
 }
