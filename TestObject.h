@@ -11,5 +11,9 @@ public:
 	virtual void draw(Canvas* c);
 	virtual void onCollision(GameObject*);
 	virtual void onEvent(sf::Event*);
+
+	Synth* synth;
+
+	float spd = 1;
 };
 

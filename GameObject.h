@@ -3,7 +3,7 @@
 #include "Vector2.h"
 #include "Canvas.h"
 #include "MaskRectangle.h"
-
+#include "Environment.h"
 class GameObject
 {
 	
@@ -11,9 +11,10 @@ public:
 	GameObject();
 	~GameObject();
 	std::string name;
-	Vector2 position, velocity;
+	Vector2 position, velocity, previousPosition;
 	static std::vector<GameObject*>* store;
 	static std::vector<GameObject*>* tempstore;
+	static Environment* environment;
 	Mask* mask;
 	bool hasMask = 0;
 

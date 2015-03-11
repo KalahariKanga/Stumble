@@ -10,9 +10,9 @@ int main(int argc, _TCHAR* argv[])
 {
 	srand(time(0));
 	Game game;
-	TestObject t[2];
-	game.addGameObject(t);
-	game.addGameObject(&t[1]);
+	TestObject t;
+	game.addGameObject(&t);
+	
 	while (1)
 		game.update();
 	return 0;

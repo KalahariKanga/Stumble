@@ -19,6 +19,6 @@ public:
 	void drawRectangle(int x1, int y1, int x2, int y2, bool outline);
 	void drawCanvas(Canvas*, int x, int y);
 	void clear();
-	
+	void clear(sf::Color);
 };
 

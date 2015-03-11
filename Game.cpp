@@ -6,14 +6,27 @@
 Game::Game()
 {
 	window.create(sf::VideoMode(640, 480), "Window");
+	window.setKeyRepeatEnabled(0);
 	canvas = new Canvas(640, 480);
 	GameObject::store = &store;
 	GameObject::tempstore = &tempstore;
+	GameObject::environment = &environment;
+
+	BASS_Init(-1, SAMPLE_RATE, 0, 0, NULL);
+	BASS_SetConfig(BASS_CONFIG_BUFFER, 128);
+	BASS_SetConfig(BASS_CONFIG_UPDATEPERIOD, 10);
+	stream = BASS_StreamCreate(SAMPLE_RATE, 1, 0, STREAMPROC_PUSH, NULL);
+	BASS_ChannelPlay(stream, 0);
+	audioThread = new std::thread(&Game::audioThreadFunction,this);
 }
 
 
 Game::~Game()
 {
+	audioThread->join();
+	BASS_StreamFree(stream);
+	BASS_Stop();
+	BASS_Free();
 }
 
 void Game::addGameObject(GameObject* g)
@@ -24,7 +37,8 @@ void Game::addGameObject(GameObject* g)
 
 void Game::update()
 {
-	time.Zero;
+	start = std::chrono::system_clock::now();
+
 	//clear canvas
 	canvas->setDrawColour(sf::Color::Black);
 	canvas->clear();
@@ -68,5 +82,21 @@ void Game::update()
 	sprite.setTexture(tex);
 	window.draw(sprite);
 	window.display();
-	std::this_thread::sleep_for(std::chrono::milliseconds((int)(1000*((float)(1/fps)-time.asSeconds()))));//no
+
+	end = std::chrono::system_clock::now();
+	std::chrono::duration<double> elapsed_seconds = end - start;
+	int ms = (int)(1000 * ((float)(1 / fps) - elapsed_seconds.count()));
+	//std::cout << ms << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+void Game::audioThreadFunction()
+{
+	while (window.isOpen())
+	{
+		environment.update();
+		while (BASS_StreamPutData(stream, NULL, 0) > 10){};
+		BASS_StreamPutData(stream, (void*)environment.getBuffer(), BUFFER_LENGTH*sizeof(short));
+		
+	}
 }

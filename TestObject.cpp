@@ -6,13 +6,19 @@ TestObject::TestObject()
 {
 	position.x = rand() % 640;
 	position.y = rand() % 480;
-	velocity.setLength(1);
-	velocity.setDirection((float)rand() / 1000);
+	
 	hasMask = 1;
 	mask = new MaskRectangle(position.x, position.y, 16, 16);
 	col.r = rand() % 256;
 	col.g = rand() % 256;
 	col.b = rand() % 256;
+	synth = environment->addSynth();
+	synth->addComponent("osc", "SimpleOscillator");
+	synth->addComponent("env", "AmpEnvelope");
+	synth->linkAudio("osc", "env");
+	synth->linkAudio("env", "output");
+	synth->setParameterRaw("osc", "waveform", 3);
+	synth->noteDown(Note((Notes)c3, 100));
 }
 
 
@@ -53,14 +59,15 @@ void TestObject::onEvent(sf::Event* e)
 {
 	if (e->type == sf::Event::KeyPressed)
 	{
-		if (e->key.code == sf::Keyboard::Up)
-			velocity.setLength(velocity.getLength() + 0.1);
-		if (e->key.code == sf::Keyboard::Down)
-			velocity.setLength(velocity.getLength() - 0.1);
-		if (e->key.code == sf::Keyboard::Space)
-		{
-			GameObject* t = new TestObject();
-			createInstance(t);
-		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			position.y -= spd;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			position.y += spd;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			position.x -= spd;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			position.x += spd;
+		
 	}
+	
 }

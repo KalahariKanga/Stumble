@@ -50,6 +50,8 @@ void Canvas::drawPoint(int x, int y, sf::Color col)
 {
 	if (x < 0 || x >= image->getSize().x || y < 0 || y >= image->getSize().y)
 		return;
+	if (col.a == 0)
+		return;
 	if (col.a < 255)
 	{
 		sf::Color dest = image->getPixel(x, y);
@@ -203,9 +205,13 @@ void Canvas::drawCanvas(Canvas* source, int x, int y)
 		}
 }
 
-void Canvas::clear()
+void Canvas::clear(sf::Color c)
 {
 	for (int cx = 0; cx < image->getSize().x; cx++)
 		for (int cy = 0; cy < image->getSize().y; cy++)
-			image->setPixel(cx, cy, drawColour);//guaranteed to be in range, so faster
+			image->setPixel(cx, cy, c);//guaranteed to be in range, so faster
+}
+void Canvas::clear()
+{
+	clear(drawColour);
 }
