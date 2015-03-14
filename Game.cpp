@@ -18,6 +18,9 @@ Game::Game()
 	stream = BASS_StreamCreate(SAMPLE_RATE, 1, 0, STREAMPROC_PUSH, NULL);
 	BASS_ChannelPlay(stream, 0);
 	audioThread = new std::thread(&Game::audioThreadFunction,this);
+
+	for (int c = 0; c < 100; c++)
+		keyDown[100] = 0;
 }
 
 
@@ -49,7 +52,23 @@ void Game::update()
 	{
 		for (auto c : store)
 			c->onEvent(&event);
+		if (event.type == sf::Event::KeyPressed)
+		{
+			keyDown[(int)event.key.code] = 1;
+			for (auto c : store)
+				c->onKeyDown(event.key.code);
+		}
+		if (event.type == sf::Event::KeyReleased)
+		{
+			keyDown[(int)event.key.code] = 0;
+			for (auto c : store)
+				c->onKeyUp(event.key.code);
+		}
 	}
+	for (int c = 0; c < 100; c++)
+		if (keyDown[c])
+			for (auto d : store)
+				d->onKey((sf::Keyboard::Key)c);
 
 	//update/step
 	for (auto c : store)

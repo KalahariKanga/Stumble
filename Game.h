@@ -22,7 +22,7 @@ class Game
 	void audioThreadFunction();
 	std::thread* audioThread;
 	std::chrono::time_point<std::chrono::system_clock> start, end;
-
+	bool keyDown[100];
 public:
 	Game();
 	~Game();

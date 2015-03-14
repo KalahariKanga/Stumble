@@ -57,17 +57,27 @@ void TestObject::onCollision(GameObject* other)
 
 void TestObject::onEvent(sf::Event* e)
 {
-	if (e->type == sf::Event::KeyPressed)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-			position.y -= spd;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-			position.y += spd;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-			position.x -= spd;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-			position.x += spd;
 		
-	}
-	
+}
+
+void TestObject::onKey(sf::Keyboard::Key k)
+{
+	if (k == sf::Keyboard::Up)
+		position.y -= spd;
+	if (k == sf::Keyboard::Down)
+		position.y += spd;
+	if (k == sf::Keyboard::Left)
+		position.x -= spd;
+	if (k == sf::Keyboard::Right)
+		position.x += spd;
+}
+
+void TestObject::onKeyDown(sf::Keyboard::Key k)
+{
+	synth->noteDown(Note((Notes)c3, 100));
+}
+
+void TestObject::onKeyUp(sf::Keyboard::Key k)
+{
+	synth->noteUp(Note((Notes)c3, 100));
 }

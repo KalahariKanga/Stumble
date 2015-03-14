@@ -30,6 +30,9 @@ public:
 	virtual void draw(Canvas*) = 0;
 	virtual void onCollision(GameObject*) = 0;
 	virtual void onEvent(sf::Event*) = 0;
+	virtual void onKeyDown(sf::Keyboard::Key) = 0;
+	virtual void onKeyUp(sf::Keyboard::Key) = 0;
+	virtual void onKey(sf::Keyboard::Key) = 0;
 	
 	void createInstance(GameObject*);
 };

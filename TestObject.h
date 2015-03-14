@@ -11,7 +11,10 @@ public:
 	virtual void draw(Canvas* c);
 	virtual void onCollision(GameObject*);
 	virtual void onEvent(sf::Event*);
-
+	virtual void onKey(sf::Keyboard::Key k);
+	virtual void onKeyUp(sf::Keyboard::Key k);
+	virtual void onKeyDown(sf::Keyboard::Key k);
+	
 	Synth* synth;
 
 	float spd = 1;
