@@ -3,14 +3,16 @@
 
 #include "stdafx.h"
 #include <iostream>
-#include "TestObject.h"
 #include "Game.h"
+
+#include "TestObject.h"
+#include "oEnemy.h"
 
 int main(int argc, _TCHAR* argv[])
 {
 	srand(time(0));
 	Game game;
-	TestObject t;
+	oEnemy t;
 	game.addGameObject(&t);
 	
 	while (1)
