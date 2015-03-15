@@ -10,4 +10,7 @@
 #define MASK_SHAPE_RECTANGLE 1
 #define MASK_SHAPE_CIRCLE 2
 
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 600
+
 float clamp(float value, float min, float max);

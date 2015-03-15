@@ -13,11 +13,12 @@ public:
 	std::string name;
 	Vector2 position, velocity, previousPosition;
 	static std::vector<GameObject*>* store;
-	static std::vector<GameObject*>* tempstore;
+	static std::vector<GameObject*>* toCreate;
+	static std::vector<GameObject*>* toDestroy;
 	static Environment* environment;
-	Mask* mask;
+	Mask* mask = 0;
 	bool hasMask = 0;
-
+	int t = 0;
 	template<class type> bool isType()
 	{
 		if (dynamic_cast<type>(this))
@@ -26,14 +27,15 @@ public:
 	};
 	void update();
 
-	virtual void step() = 0;
-	virtual void draw(Canvas*) = 0;
-	virtual void onCollision(GameObject*) = 0;
-	virtual void onEvent(sf::Event*) = 0;
-	virtual void onKeyDown(sf::Keyboard::Key) = 0;
-	virtual void onKeyUp(sf::Keyboard::Key) = 0;
-	virtual void onKey(sf::Keyboard::Key) = 0;
+	virtual void step();
+	virtual void draw(Canvas*);
+	virtual void onCollision(GameObject*);
+	virtual void onEvent(sf::Event*);
+	virtual void onKeyDown(sf::Keyboard::Key);
+	virtual void onKeyUp(sf::Keyboard::Key);
+	virtual void onKey(sf::Keyboard::Key);
 	
 	void createInstance(GameObject*);
+	void destroyInstance(GameObject*);
 };
 

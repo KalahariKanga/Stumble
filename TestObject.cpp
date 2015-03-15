@@ -4,8 +4,8 @@
 
 TestObject::TestObject()
 {
-	position.x = rand() % 640;
-	position.y = rand() % 480;
+	position.x = rand() % WINDOW_WIDTH;
+	position.y = rand() % WINDOW_HEIGHT;
 	
 	hasMask = 1;
 	mask = new MaskRectangle(position.x, position.y, 16, 16);
@@ -29,12 +29,12 @@ TestObject::~TestObject()
 void TestObject::step()
 {
 	if (position.x < 0)
-		position.x = 640;
-	if (position.x > 640)
+		position.x = WINDOW_WIDTH;
+	if (position.x > WINDOW_WIDTH)
 		position.x = 0;
 	if (position.y < 0)
-		position.y = 480;
-	if (position.y > 480)
+		position.y = WINDOW_HEIGHT;
+	if (position.y > WINDOW_HEIGHT)
 		position.y = 0;
 }
 

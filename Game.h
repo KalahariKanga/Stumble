@@ -9,14 +9,17 @@
 
 class Game
 {
+	
 	std::vector<GameObject*> store;
-	std::vector<GameObject*> tempstore;
+	std::vector<GameObject*> toCreate;
+	std::vector<GameObject*> toDestroy;
 	Environment environment;
 	HSTREAM stream;
 	sf::RenderWindow window;
 	sf::Texture tex;
 	sf::Sprite sprite;
 	Canvas* canvas;
+
 	const int fps = 60;
 	sf::Time time;
 	void audioThreadFunction();

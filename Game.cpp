@@ -5,11 +5,13 @@
 
 Game::Game()
 {
-	window.create(sf::VideoMode(640, 480), "Window");
+	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Window");
 	window.setKeyRepeatEnabled(0);
-	canvas = new Canvas(640, 480);
+	tex.setSmooth(0);
+	canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
 	GameObject::store = &store;
-	GameObject::tempstore = &tempstore;
+	GameObject::toCreate = &toCreate;
+	GameObject::toDestroy = &toDestroy;
 	GameObject::environment = &environment;
 
 	BASS_Init(-1, SAMPLE_RATE, 0, 0, NULL);
@@ -20,7 +22,7 @@ Game::Game()
 	audioThread = new std::thread(&Game::audioThreadFunction,this);
 
 	for (int c = 0; c < 100; c++)
-		keyDown[100] = 0;
+		keyDown[c] = 0;
 }
 
 
@@ -43,7 +45,7 @@ void Game::update()
 	start = std::chrono::system_clock::now();
 
 	//clear canvas
-	canvas->setDrawColour(sf::Color::Black);
+	canvas->setDrawColour(sf::Color(0,0,0,128));
 	canvas->clear();
 	
 	//handle events
@@ -92,9 +94,16 @@ void Game::update()
 	for (auto c : store)
 		c->draw(canvas);
 
-	//merge objects
-	store.insert(store.end(), tempstore.begin(), tempstore.end());
-	tempstore.clear();
+	//update object vector
+	store.insert(store.end(), toCreate.begin(), toCreate.end());
+	toCreate.clear();
+	for (auto c : toDestroy)
+	{
+		auto it = std::find(store.begin(), store.end(), c);
+		if (it != store.end())
+			store.erase(it);
+	}
+	
 
 	//update screen
 	tex.loadFromImage(*(canvas->getImage()));
@@ -104,8 +113,9 @@ void Game::update()
 
 	end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
-	int ms = (int)(1000 * ((float)(1 / fps) - elapsed_seconds.count()));
+	int ms = 1000 * (((1 / (float)fps)) - elapsed_seconds.count());
 	//std::cout << ms << std::endl;
+	//std::cout << store.size() << std::endl;
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
