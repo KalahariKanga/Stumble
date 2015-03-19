@@ -15,7 +15,7 @@ public:
 	virtual void onKeyUp(sf::Keyboard::Key k);
 	virtual void onKeyDown(sf::Keyboard::Key k);
 	
-	Synth* synth;
+	Synth* synth[2];
 
 	float spd = 1;
 };

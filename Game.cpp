@@ -19,7 +19,10 @@ Game::Game()
 	BASS_SetConfig(BASS_CONFIG_UPDATEPERIOD, 10);
 	stream = BASS_StreamCreate(SAMPLE_RATE, 1, 0, STREAMPROC_PUSH, NULL);
 	BASS_ChannelPlay(stream, 0);
+
+#ifndef _DEBUG
 	audioThread = new std::thread(&Game::audioThreadFunction,this);
+#endif
 
 	for (int c = 0; c < 100; c++)
 		keyDown[c] = 0;
@@ -111,6 +114,7 @@ void Game::update()
 	window.draw(sprite);
 	window.display();
 
+	//timing
 	end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 	int ms = 1000 * (((1 / (float)fps)) - elapsed_seconds.count());

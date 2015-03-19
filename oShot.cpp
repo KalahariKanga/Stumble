@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "oShot.h"
 
-
 oShot::oShot()
 {
 	position.x = 200;

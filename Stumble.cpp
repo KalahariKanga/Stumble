@@ -12,7 +12,7 @@ int main(int argc, _TCHAR* argv[])
 {
 	srand(time(0));
 	Game game;
-	oEnemy t;
+	TestObject t;
 	game.addGameObject(&t);
 	
 	while (1)
