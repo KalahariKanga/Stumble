@@ -109,7 +109,8 @@ void Game::update()
 	
 
 	//update screen
-	tex.loadFromImage(*(canvas->getImage()));
+	image.create(WINDOW_WIDTH, WINDOW_HEIGHT, canvas->data);
+	tex.loadFromImage(image);
 	sprite.setTexture(tex);
 	window.draw(sprite);
 	window.display();
@@ -128,7 +129,9 @@ void Game::audioThreadFunction()
 	while (window.isOpen())
 	{
 		environment.update();
-		while (BASS_StreamPutData(stream, NULL, 0) > 10){};
+		while (BASS_StreamPutData(stream, NULL, 0) > 10)
+			std::this_thread::sleep_for(std::chrono::milliseconds(5));
+		
 		BASS_StreamPutData(stream, (void*)environment.getBuffer(), BUFFER_LENGTH*sizeof(short));
 		
 	}

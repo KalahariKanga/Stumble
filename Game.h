@@ -18,6 +18,7 @@ class Game
 	sf::RenderWindow window;
 	sf::Texture tex;
 	sf::Sprite sprite;
+	sf::Image image;
 	Canvas* canvas;
 
 	const int fps = 60;
