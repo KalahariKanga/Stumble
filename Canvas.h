@@ -2,13 +2,16 @@
 #include "core.h"
 class Canvas
 {
-	sf::Image* image;
+	//sf::Image* image;
 	sf::Color drawColour;
+	
 public:
 	Canvas();
 	Canvas(int, int);
 	~Canvas();
-	sf::Image* getImage();
+	sf::Uint8* data;
+	void colorToData(int x, int y, sf::Color c);
+	int width, height;
 	sf::Color getPoint(int x, int y);
 	void setDrawColour(sf::Color);
 	void setDrawAlpha(float);

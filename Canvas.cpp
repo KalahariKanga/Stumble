@@ -10,25 +10,31 @@ Canvas::Canvas()
 Canvas::Canvas(int width, int height)
 {
 	drawColour = sf::Color::Red;
-	image = new sf::Image();
-	image->create(width, height);
 	setDrawAlpha(255);
+	data = new sf::Uint8[width*height*4];
+	this->width = width;
+	this->height = height;
+	
 }
 
 Canvas::~Canvas()
 {
 }
 
-sf::Image* Canvas::getImage()
+void Canvas::colorToData(int x, int y, sf::Color c)
 {
-	return image;
+	data[4 * (y*width + x)] = c.r;
+	data[4 * (y*width + x) + 1] = c.g;
+	data[4 * (y*width + x) + 2] = c.b;
+	data[4 * (y*width + x) + 3] = c.a;
 }
+
 
 sf::Color Canvas::getPoint(int x, int y)
 {
-	if (x < 0 || x >= image->getSize().x || y < 0 || y >= image->getSize().y)
+	if (x < 0 || x >= width || y < 0 || y >= height)
 		return sf::Color::Black; //TODO: wrap or extend or something
-	return image->getPixel(x, y);
+	return sf::Color(data[4 * (y*width + x)], data[4 * (y*width + x) + 1], data[4 * (y*width + x) + 2], data[4 * (y*width + x) + 3]);
 }
 
 void Canvas::setDrawColour(sf::Color c)
@@ -48,13 +54,13 @@ void Canvas::drawPoint(int x, int y)
 
 void Canvas::drawPoint(int x, int y, sf::Color col)
 {
-	if (x < 0 || x >= image->getSize().x || y < 0 || y >= image->getSize().y)
+	if (x < 0 || x >= width || y < 0 || y >= height)
 		return;
 	if (col.a == 0)
 		return;
 	if (col.a < 255)
 	{
-		sf::Color dest = image->getPixel(x, y);
+		sf::Color dest = getPoint(x, y);
 		sf::Color out;
 		float ca = (float)col.a / 255;
 		float da = (float)dest.a / 255;
@@ -73,12 +79,13 @@ void Canvas::drawPoint(int x, int y, sf::Color col)
 			out.g = 0;
 			out.b = 0;
 		}
-
-		image->setPixel(x, y, out);
+		colorToData(x, y, out);
+		//image->setPixel(x, y, out);
 	}
 	else
 	{
-		image->setPixel(x, y, col);
+		colorToData(x, y, col);
+		//image->setPixel(x, y, col);
 	}
 }
 
@@ -198,8 +205,8 @@ void Canvas::drawRectangle(int x1, int y1, int x2, int y2, bool outline)
 
 void Canvas::drawCanvas(Canvas* source, int x, int y)
 {
-	for (int cx = 0; cx < source->getImage()->getSize().x; cx++)
-		for (int cy = 0; cy < source->getImage()->getSize().y; cy++)
+	for (int cx = 0; cx < source->width; cx++)
+		for (int cy = 0; cy < source->height; cy++)
 		{
 			drawPoint(x + cx, y + cy, source->getPoint(cx, cy));
 		}
@@ -207,9 +214,15 @@ void Canvas::drawCanvas(Canvas* source, int x, int y)
 
 void Canvas::clear(sf::Color c)
 {
-	for (int cx = 0; cx < image->getSize().x; cx++)
-		for (int cy = 0; cy < image->getSize().y; cy++)
-			image->setPixel(cx, cy, c);//guaranteed to be in range, so faster
+//	for (int cx = 0; cx < image->getSize().x; cx++)
+//		for (int cy = 0; cy < image->getSize().y; cy++)
+//			image->setPixel(cx, cy, c);//guaranteed to be in range, so faster
+	for (int c = 0; c < width* height; c++)
+	{
+		data[4 * c] = 0;
+		data[4 * c + 1] = 0;
+		data[4 * c + 2] = 0;
+	}
 }
 void Canvas::clear()
 {
