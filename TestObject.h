@@ -14,9 +14,11 @@ public:
 	virtual void onKey(sf::Keyboard::Key k);
 	virtual void onKeyUp(sf::Keyboard::Key k);
 	virtual void onKeyDown(sf::Keyboard::Key k);
-	
-	Synth* synth[2];
+	virtual void onMidiEvent(MidiEvent e);
+	Synth* synth[3];
 
-	float spd = 1;
+	float spd = 4;
+
+	void fire(std::string drum);
 };
 

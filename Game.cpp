@@ -26,6 +26,8 @@ Game::Game()
 
 	for (int c = 0; c < 100; c++)
 		keyDown[c] = 0;
+
+
 }
 
 
@@ -78,6 +80,8 @@ void Game::update()
 	//update/step
 	for (auto c : store)
 		c->update();
+
+	processMidiEvents();
 
 	//handle collisions
 	for (int i = 0; i < store.size(); i++)
@@ -135,4 +139,12 @@ void Game::audioThreadFunction()
 		BASS_StreamPutData(stream, (void*)environment.getBuffer(), BUFFER_LENGTH*sizeof(short));
 		
 	}
+}
+
+void Game::processMidiEvents()
+{
+	for (auto c : store)
+		for (auto e : environment.events)
+			c->onMidiEvent(e);
+	environment.events.clear();
 }

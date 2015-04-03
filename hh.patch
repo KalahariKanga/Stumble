@@ -1,0 +1,12 @@
+2
+noise NoiseOscillator
+env AmpEnvelope
+2
+noise env
+env output
+0
+4
+env a 0.01
+env d 0.1
+env s 0
+env r 0

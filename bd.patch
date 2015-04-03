@@ -9,10 +9,12 @@ noise env
 env filter
 filter output
 0
-6
-osc octaves -1
-osc waveform 0
+7
+osc octaves -2
+osc waveform 1
+filter type 0
+filter freq 400
 env a 0.01
-env d 0.25
+env d 0.1
 env s 0
 env r 0
