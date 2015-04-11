@@ -7,7 +7,7 @@
 #include <thread>
 #include <chrono>
 
-class Game
+class DLL Game
 {
 	
 	std::vector<GameObject*> store;

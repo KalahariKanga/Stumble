@@ -1,6 +1,6 @@
 #pragma once
 #include "Mask.h"
-class MaskRectangle :
+class DLL MaskRectangle :
 	public Mask
 {
 public:

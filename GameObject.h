@@ -4,7 +4,7 @@
 #include "Canvas.h"
 #include "MaskRectangle.h"
 #include "Environment.h"
-class GameObject
+class DLL GameObject
 {
 	
 public:
@@ -37,5 +37,7 @@ public:
 	virtual void onMidiEvent(MidiEvent e);
 	void createInstance(GameObject*);
 	void destroyInstance(GameObject*);
+
+	Environment* getEnvironment();
 };
 

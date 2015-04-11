@@ -1,6 +1,6 @@
 #pragma once
 #include "core.h"
-class Vector2
+class DLL Vector2
 {
 public:
 	Vector2();

@@ -1,6 +1,6 @@
 #pragma once
 #include "core.h"
-class Canvas
+class DLL Canvas
 {
 	//sf::Image* image;
 	sf::Color drawColour;

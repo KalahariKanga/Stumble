@@ -13,4 +13,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
+#define DLL _declspec(dllexport)
+
 float clamp(float value, float min, float max);

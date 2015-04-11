@@ -1,6 +1,6 @@
 #pragma once
 #include "core.h"
-class Mask
+class DLL Mask
 {
 public:
 	Mask();

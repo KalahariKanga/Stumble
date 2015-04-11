@@ -70,3 +70,7 @@ void GameObject::onMidiEvent(MidiEvent)
 {
 
 }
+Environment* GameObject::getEnvironment()
+{
+	return environment;
+}
