@@ -8,8 +8,8 @@ public:
 	oEnemy();
 	~oEnemy();
 
-	void step();
-	void draw(Canvas*);
+	void onStep();
+	void onDraw(Canvas*);
 	void onKeyDown(sf::Keyboard::Key);
 	void pattern1();
 	void pattern2();

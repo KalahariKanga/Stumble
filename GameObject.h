@@ -27,8 +27,8 @@ public:
 	};
 	void update();
 
-	virtual void step();
-	virtual void draw(Canvas*);
+	virtual void onStep();
+	virtual void onDraw(Canvas*);
 	virtual void onCollision(GameObject*);
 	virtual void onEvent(sf::Event*);
 	virtual void onKeyDown(sf::Keyboard::Key);
@@ -39,5 +39,6 @@ public:
 	void destroyInstance(GameObject*);
 
 	Environment* getEnvironment();
+	std::vector<GameObject*>* getStore();
 };
 

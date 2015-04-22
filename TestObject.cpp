@@ -29,7 +29,7 @@ TestObject::~TestObject()
 {
 }
 
-void TestObject::step()
+void TestObject::onStep()
 {
 	if (position.x < 0)
 		position.x = WINDOW_WIDTH;
@@ -43,7 +43,7 @@ void TestObject::step()
 	
 }
 
-void TestObject::draw(Canvas* c)
+void TestObject::onDraw(Canvas* c)
 {
 	c->setDrawColour(col);
 	c->setDrawAlpha(1);

@@ -25,7 +25,7 @@ void GameObject::update()
 		mask->x = position.x;
 		mask->y = position.y;
 	}
-	step();
+	onStep();
 }
 
 void GameObject::createInstance(GameObject* o)
@@ -38,11 +38,11 @@ void GameObject::destroyInstance(GameObject* o)
 	toDestroy->push_back(o);
 }
 
-void GameObject::step()
+void GameObject::onStep()
 {
 
 }
-void GameObject::draw(Canvas*)
+void GameObject::onDraw(Canvas*)
 {
 
 }
@@ -73,4 +73,8 @@ void GameObject::onMidiEvent(MidiEvent)
 Environment* GameObject::getEnvironment()
 {
 	return environment;
+}
+std::vector<GameObject*>* GameObject::getStore()
+{
+	return store;
 }

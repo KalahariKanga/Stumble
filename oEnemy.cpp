@@ -13,7 +13,7 @@ oEnemy::~oEnemy()
 {
 }
 
-void oEnemy::step()
+void oEnemy::onStep()
 {
 	if (p == 1)
 		pattern1();
@@ -26,7 +26,7 @@ void oEnemy::step()
 	}
 }
 
-void oEnemy::draw(Canvas* c)
+void oEnemy::onDraw(Canvas* c)
 {
 	//c->setDrawColour(sf::Color(255, 255, 255));
 	//c->drawCircle(position.x, position.y, 16, 1);

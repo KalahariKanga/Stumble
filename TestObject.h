@@ -7,8 +7,8 @@ class TestObject :
 public:
 	TestObject();
 	~TestObject();
-	void step();
-	virtual void draw(Canvas* c);
+	void onStep();
+	virtual void onDraw(Canvas* c);
 	virtual void onCollision(GameObject*);
 	virtual void onEvent(sf::Event*);
 	virtual void onKey(sf::Keyboard::Key k);

@@ -99,7 +99,7 @@ void Game::update()
 	
 	//draw objects
 	for (auto c : store)
-		c->draw(canvas);
+		c->onDraw(canvas);
 
 	//update object vector
 	store.insert(store.end(), toCreate.begin(), toCreate.end());

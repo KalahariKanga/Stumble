@@ -12,13 +12,13 @@ oShot::~oShot()
 {
 }
 
-void oShot::step()
+void oShot::onStep()
 {
 	if (position.x < 0 || position.x > WINDOW_WIDTH || position.y < 0 || position.y > WINDOW_HEIGHT)
 		destroyInstance(this);
 }
 
-void oShot::draw(Canvas* c)
+void oShot::onDraw(Canvas* c)
 {
 	int c1 = velocity.getDirection() * 42;
 	c->setDrawColour(sf::Color(255 * sin((float)t / 300), 255 - c1, (int)position.x % WINDOW_WIDTH));

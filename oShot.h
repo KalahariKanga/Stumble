@@ -7,8 +7,8 @@ public:
 	oShot();
 	~oShot();
 
-	virtual void step();
-	virtual void draw(Canvas*);
+	virtual void onStep();
+	virtual void onDraw(Canvas*);
 	/*virtual void onCollision(GameObject*);
 	virtual void onEvent(sf::Event*);
 	virtual void onKey(sf::Keyboard::Key);
