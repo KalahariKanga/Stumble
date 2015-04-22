@@ -96,6 +96,12 @@ void Game::update()
 				}
 			}
 		}
+
+	//sort by depth (could be a flag for needsDepthUpdate)
+	std::sort(store.begin(), store.end(), [](GameObject* a, GameObject* b)
+	{
+		return a->depth > b->depth;
+	});
 	
 	//draw objects
 	for (auto c : store)

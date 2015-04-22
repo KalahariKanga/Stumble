@@ -19,6 +19,7 @@ public:
 	Mask* mask = 0;
 	bool hasMask = 0;
 	int t = 0;
+	int depth = 0;
 	template<class type> bool isType()
 	{
 		if (dynamic_cast<type>(this))

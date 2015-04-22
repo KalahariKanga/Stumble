@@ -22,6 +22,8 @@ TestObject::TestObject()
 	environment->assignMidiTrack(2, synth[1]);
 	environment->assignMidiTrack(3, synth[2]);
 	environment->playMidiFile();
+
+	depth = -10;
 }
 
 
