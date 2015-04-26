@@ -80,12 +80,10 @@ void Canvas::drawPoint(int x, int y, sf::Color col)
 			out.b = 0;
 		}
 		colorToData(x, y, out);
-		//image->setPixel(x, y, out);
 	}
 	else
 	{
 		colorToData(x, y, col);
-		//image->setPixel(x, y, col);
 	}
 }
 
@@ -212,11 +210,18 @@ void Canvas::drawCanvas(Canvas* source, int x, int y)
 		}
 }
 
+void Canvas::drawCircleFunction(int x, int y, int r, std::function<float(float)> f)
+{
+	for (float theta = 0; theta <= 2 * PI; theta += PI / 8)
+	{
+		float r0 = f(theta);
+		float r1 = f(theta + PI / 8);
+		drawLine(x+(r+r0)*cos(theta), y+(r+r0)*sin(theta), x+(r+r1)*cos(theta + PI / 8), y+(r+r1)*sin(theta + PI / 8));
+	}
+}
+
 void Canvas::clear(sf::Color c)
 {
-//	for (int cx = 0; cx < image->getSize().x; cx++)
-//		for (int cy = 0; cy < image->getSize().y; cy++)
-//			image->setPixel(cx, cy, c);//guaranteed to be in range, so faster
 	for (int c = 0; c < width* height; c++)
 	{
 		data[4 * c] = 0;
