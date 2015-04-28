@@ -4,6 +4,7 @@ class TestObject :
 	public GameObject
 {
 	sf::Color col;
+	Canvas sprite;
 public:
 	TestObject();
 	~TestObject();

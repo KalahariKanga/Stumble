@@ -4,6 +4,9 @@
 
 TestObject::TestObject()
 {
+
+	
+	sprite.loadFromFile("p1_front.png");
 	position.x = rand() % WINDOW_WIDTH;
 	position.y = rand() % WINDOW_HEIGHT;
 	
@@ -17,7 +20,7 @@ TestObject::TestObject()
 	synth[1] = environment->addSynth("sine.patch");
 	synth[2] = environment->addSynth("sine.patch");
 
-	environment->loadMidiFile("chopin.mid");
+	environment->loadMidiFile("laura.mid");
 	environment->assignMidiTrack(1, synth[0]);
 	environment->assignMidiTrack(2, synth[1]);
 	environment->assignMidiTrack(3, synth[2]);
@@ -52,6 +55,7 @@ void TestObject::onDraw(Canvas* c)
 	c->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
 	c->setDrawColour(sf::Color::Blue);
 	c->setDrawAlpha(1);
+	c->drawCanvas(&sprite, position.x, position.y);
 }
 
 void TestObject::onCollision(GameObject* other)

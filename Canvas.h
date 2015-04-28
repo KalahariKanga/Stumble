@@ -12,6 +12,9 @@ public:
 	sf::Uint8* data;
 	void colorToData(int x, int y, sf::Color c);
 	int width, height;
+
+	void loadFromFile(std::string fname);
+
 	sf::Color getPoint(int x, int y);
 	void setDrawColour(sf::Color);
 	void setDrawAlpha(float);

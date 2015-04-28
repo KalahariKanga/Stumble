@@ -29,6 +29,20 @@ void Canvas::colorToData(int x, int y, sf::Color c)
 	data[4 * (y*width + x) + 3] = c.a;
 }
 
+void Canvas::loadFromFile(std::string fname)
+{
+	sf::Image i;
+	i.loadFromFile(fname);
+	delete data;
+	width = i.getSize().x;
+	height = i.getSize().y;
+	data = new sf::Uint8[width * height * 4];
+	const sf::Uint8* p = i.getPixelsPtr();
+	for (int c = 0; c < width*height * 4; c++)
+	{
+		data[c] = *(p + c);
+	}
+}
 
 sf::Color Canvas::getPoint(int x, int y)
 {
