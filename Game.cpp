@@ -8,7 +8,8 @@ Game::Game()
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Window");
 	window.setKeyRepeatEnabled(0);
 	tex.setSmooth(0);
-	canvas = new Canvas(WINDOW_WIDTH, WINDOW_HEIGHT);
+	screen = canvasStore.addCanvas("screen", WINDOW_WIDTH, WINDOW_HEIGHT);
+	canvasStore.screen = screen;
 	GameObject::store = &store;
 	GameObject::toCreate = &toCreate;
 	GameObject::toDestroy = &toDestroy;
@@ -50,8 +51,8 @@ void Game::update()
 	start = std::chrono::system_clock::now();
 
 	//clear canvas
-	canvas->setDrawColour(sf::Color(0,0,0,128));
-	canvas->clear();
+	screen->setDrawColour(sf::Color(0,0,0,128));
+	screen->clear();
 	
 	//handle events
 	sf::Event event;
@@ -105,7 +106,7 @@ void Game::update()
 	
 	//draw objects
 	for (auto c : store)
-		c->onDraw(canvas);
+		c->onDraw(&canvasStore);
 
 	//update object vector
 	store.insert(store.end(), toCreate.begin(), toCreate.end());
@@ -119,7 +120,7 @@ void Game::update()
 	
 
 	//update screen
-	image.create(WINDOW_WIDTH, WINDOW_HEIGHT, canvas->data);
+	image.create(WINDOW_WIDTH, WINDOW_HEIGHT, screen->data);
 	tex.loadFromImage(image);
 	sprite.setTexture(tex);
 	window.draw(sprite);

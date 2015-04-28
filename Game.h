@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
-#include "Canvas.h"
+#include "CanvasStore.h"
+//#include "Canvas.h"
 #include "Scene.h"
 #include "Environment.h"
 #include "bass.h"
@@ -19,8 +20,8 @@ class DLL Game
 	sf::Texture tex;
 	sf::Sprite sprite;
 	sf::Image image;
-	Canvas* canvas;
-
+	Canvas* screen;
+	CanvasStore canvasStore;
 	const int fps = 60;
 	sf::Time time;
 	void audioThreadFunction();

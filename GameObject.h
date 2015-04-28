@@ -1,7 +1,7 @@
 #pragma once
 #include "core.h"
 #include "Vector2.h"
-#include "Canvas.h"
+#include "CanvasStore.h"
 #include "MaskRectangle.h"
 #include "Environment.h"
 class DLL GameObject
@@ -29,7 +29,7 @@ public:
 	void update();
 
 	virtual void onStep();
-	virtual void onDraw(Canvas*);
+	virtual void onDraw(CanvasStore*);
 	virtual void onCollision(GameObject*);
 	virtual void onEvent(sf::Event*);
 	virtual void onKeyDown(sf::Keyboard::Key);

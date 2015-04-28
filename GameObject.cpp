@@ -42,7 +42,7 @@ void GameObject::onStep()
 {
 
 }
-void GameObject::onDraw(Canvas*)
+void GameObject::onDraw(CanvasStore*)
 {
 
 }

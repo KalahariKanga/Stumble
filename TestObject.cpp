@@ -6,7 +6,7 @@ TestObject::TestObject()
 {
 
 	
-	sprite.loadFromFile("p1_front.png");
+	//sprite.loadFromFile("p1_front.png");
 	position.x = rand() % WINDOW_WIDTH;
 	position.y = rand() % WINDOW_HEIGHT;
 	
@@ -48,14 +48,15 @@ void TestObject::onStep()
 	
 }
 
-void TestObject::onDraw(Canvas* c)
+void TestObject::onDraw(CanvasStore* c)
 {
-	c->setDrawColour(col);
-	c->setDrawAlpha(1);
-	c->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
-	c->setDrawColour(sf::Color::Blue);
-	c->setDrawAlpha(1);
-	c->drawCanvas(&sprite, position.x, position.y);
+	Canvas* canvas = c->screen;
+	canvas->setDrawColour(col);
+	canvas->setDrawAlpha(1);
+	canvas->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
+	canvas->setDrawColour(sf::Color::Blue);
+	canvas->setDrawAlpha(1);
+	canvas->drawCanvas(&sprite, position.x, position.y);
 }
 
 void TestObject::onCollision(GameObject* other)
