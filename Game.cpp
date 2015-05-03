@@ -130,8 +130,6 @@ void Game::update()
 	end = std::chrono::system_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 	int ms = 1000 * (((1 / (float)fps)) - elapsed_seconds.count());
-	//std::cout << ms << std::endl;
-	//std::cout << store.size() << std::endl;
 	std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 

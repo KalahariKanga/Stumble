@@ -21,7 +21,7 @@ class DLL Game
 	sf::Sprite sprite;
 	sf::Image image;
 	Canvas* screen;
-	CanvasStore canvasStore;
+	
 	const int fps = 60;
 	sf::Time time;
 	void audioThreadFunction();
@@ -34,5 +34,7 @@ public:
 	~Game();
 	void addGameObject(GameObject*);
 	void update();
+	
+	CanvasStore canvasStore;//not sure it needs to be public
 };
 
