@@ -234,6 +234,34 @@ void Canvas::drawCircleFunction(int x, int y, int r, std::function<float(float)>
 	}
 }
 
+void Canvas::drawLineFunction(int x0, int y0, int x1, int y1, std::function<float(float)> f, bool fixEndpoints)
+{
+	auto fix = [](float p){return 1 - 4 * ((p - 0.5)*(p - 0.5)); };
+	//the unit vector perpendicular to the line
+	float l = sqrt((x1 - x0)*(x1 - x0) + (y1 - y0)*(y1 - y0));
+	float ux = (y0 - y1) / l;
+	float uy = (x1 - x0) / l;
+	
+	for (float t = 0; t < 1; t += 0.05)//optimise for length
+	{
+		//the point t of the way along the line
+		int x3 = x0 + (t+0.05)*(x1 - x0);
+		int y3 = y0 + (t+0.05)*(y1 - y0);
+		int x2 = x0 + t*(x1 - x0);
+		int y2 = y0 + t*(y1 - y0);
+
+		float o1 = f(t);
+		float o2 = f(t + 0.05);
+
+		if (fixEndpoints)
+		{
+			o1 *= fix(t);
+			o2 *= fix(t + 0.05);
+		}
+		drawLine(x2 + o1*ux, y2 + o1*uy, x3 + o2*ux, y3 + o2*uy);
+	}
+}
+
 void Canvas::clear(sf::Color c)
 {
 	for (int c = 0; c < width* height; c++)
@@ -246,4 +274,20 @@ void Canvas::clear(sf::Color c)
 void Canvas::clear()
 {
 	clear(drawColour);
+}
+
+void Canvas::applyPixelModifier(std::function<sf::Color(Canvas*, int, int)> f)
+{
+	Canvas temp(width,height);
+	for (int cx = 0; cx < width; cx++)
+		for (int cy = 0; cy < height; cy++)
+		{
+			temp.drawPoint(cx, cy, f(this, cx, cy));
+		}
+	//something something move rather than copy...
+	for (int cx = 0; cx < width; cx++)
+		for (int cy = 0; cy < height; cy++)
+		{
+			drawPoint(cx, cy, temp.getPoint(cx, cy));
+		}
 }

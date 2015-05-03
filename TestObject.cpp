@@ -57,6 +57,8 @@ void TestObject::onDraw(CanvasStore* c)
 	canvas->setDrawColour(sf::Color::Blue);
 	canvas->setDrawAlpha(1);
 	canvas->drawCanvas(&sprite, position.x, position.y);
+	
+	canvas->drawLineFunction(100, 100, 400, 400, [&](float p){return 32 * sin((float)t / 30 + p*5); });
 }
 
 void TestObject::onCollision(GameObject* other)

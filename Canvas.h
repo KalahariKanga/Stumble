@@ -1,5 +1,6 @@
 #pragma once
 #include "core.h"
+#include "Vector2.h"
 class DLL Canvas
 {
 	//sf::Image* image;
@@ -25,7 +26,10 @@ public:
 	void drawRectangle(int x1, int y1, int x2, int y2, bool outline);
 	void drawCanvas(Canvas*, int x, int y);
 	void drawCircleFunction(int x, int y, int r, std::function<float(float)> f);
+	void drawLineFunction(int x0, int y0, int x1, int y1, std::function<float(float)> f, bool fixEndpoints = 1);
 	void clear();
 	void clear(sf::Color);
+
+	void applyPixelModifier(std::function<sf::Color(Canvas*,int,int)> f);
 };
 
