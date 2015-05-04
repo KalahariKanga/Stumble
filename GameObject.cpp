@@ -78,3 +78,15 @@ std::vector<GameObject*>* GameObject::getStore()
 {
 	return store;
 }
+
+void GameObject::addTag(std::string tag)
+{
+	if (tags.find(tag) != tags.end())
+		return;
+	tags.insert(tag);
+}
+
+bool GameObject::checkTag(std::string tag)
+{
+	return (tags.find(tag) != tags.end());
+}

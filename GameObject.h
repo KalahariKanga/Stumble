@@ -1,4 +1,5 @@
 #pragma once
+#include <set>
 #include "core.h"
 #include "Vector2.h"
 #include "CanvasStore.h"
@@ -6,11 +7,11 @@
 #include "Environment.h"
 class DLL GameObject
 {
-	
+	std::set<std::string> tags;
 public:
 	GameObject();
 	~GameObject();
-	std::string name;
+
 	Vector2 position, velocity, previousPosition;
 	static std::vector<GameObject*>* store;
 	static std::vector<GameObject*>* toCreate;
@@ -20,12 +21,7 @@ public:
 	bool hasMask = 0;
 	int t = 0;
 	int depth = 0;
-	template<class type> bool isType()
-	{
-		if (dynamic_cast<type>(this))
-			return 1;
-		return 0;
-	};
+	
 	void update();
 
 	virtual void onStep();
@@ -41,5 +37,8 @@ public:
 
 	Environment* getEnvironment();
 	std::vector<GameObject*>* getStore();
+
+	void addTag(std::string tag);
+	bool checkTag(std::string tag);
 };
 
