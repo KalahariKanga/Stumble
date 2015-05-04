@@ -264,11 +264,11 @@ void Canvas::drawLineFunction(int x0, int y0, int x1, int y1, std::function<floa
 
 void Canvas::clear(sf::Color c)
 {
-	for (int c = 0; c < width* height; c++)
+	for (int i = 0; i < width* height; i++)
 	{
-		data[4 * c] = 0;
-		data[4 * c + 1] = 0;
-		data[4 * c + 2] = 0;
+		data[4 * i] = c.r;
+		data[4 * i + 1] = c.g;
+		data[4 * i + 2] = c.b;
 	}
 }
 void Canvas::clear()

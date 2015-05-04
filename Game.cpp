@@ -51,8 +51,8 @@ void Game::update()
 	start = std::chrono::system_clock::now();
 
 	//clear canvas
-	screen->setDrawColour(sf::Color(0,0,0,128));
-	screen->clear();
+	canvasStore.clearScreen();
+	
 	
 	//handle events
 	sf::Event event;

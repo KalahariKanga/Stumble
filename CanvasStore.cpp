@@ -4,6 +4,7 @@
 
 CanvasStore::CanvasStore()
 {
+	clearColour = sf::Color(0, 0, 0, 255);
 }
 
 
@@ -34,4 +35,8 @@ Canvas* CanvasStore::getCanvas(std::string name)
 		return nullptr;
 }
 
-
+void CanvasStore::clearScreen()
+{
+	screen->setDrawColour(clearColour);
+	screen->drawRectangle(0,0,WINDOW_WIDTH,WINDOW_HEIGHT,0);
+}
