@@ -20,11 +20,11 @@ TestObject::TestObject()
 	synth[1] = environment->addSynth("sine.patch");
 	synth[2] = environment->addSynth("sine.patch");
 
-	environment->loadMidiFile("laura.mid");
-	environment->assignMidiTrack(1, synth[0]);
-	environment->assignMidiTrack(2, synth[1]);
-	environment->assignMidiTrack(3, synth[2]);
-	environment->playMidiFile();
+	MidiPlayer* mp = environment->addPlayer("laura.mid");
+	mp->assignTrack(1, synth[0]);
+	mp->assignTrack(2, synth[1]);
+	mp->assignTrack(3, synth[2]);
+	mp->play();
 
 	depth = -10;
 }
@@ -58,7 +58,11 @@ void TestObject::onDraw(CanvasStore* c)
 	canvas->setDrawAlpha(1);
 	canvas->drawCanvas(&sprite, position.x, position.y);
 	
-	canvas->drawLineFunction(100, 100, 400, 400, [&](float p){return 32 * sin((float)t / 30 + p*5); });
+	for (int x = 0; x < WINDOW_WIDTH; x+=64)
+		canvas->drawLineFunction(x, 0, x, WINDOW_HEIGHT, [&](float p){return 32 * sin((float)t / 30 + p*5 + x); },0);
+	for (int y = 0; y < WINDOW_HEIGHT; y += 64)
+		canvas->drawLineFunction(0, y, WINDOW_WIDTH, y, [&](float p){return 32 * sin((float)t / 30 + p * 5 + y); },0);
+
 }
 
 void TestObject::onCollision(GameObject* other)

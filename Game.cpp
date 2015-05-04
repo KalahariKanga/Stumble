@@ -149,7 +149,9 @@ void Game::audioThreadFunction()
 void Game::processMidiEvents()
 {
 	for (auto c : store)
-		for (auto e : environment.events)
-			c->onMidiEvent(e);
-	environment.events.clear();
+		for (auto p : environment.players)
+			for (auto e : p->events)
+				c->onMidiEvent(e);
+	for (auto p : environment.players)
+		p->events.clear();
 }
