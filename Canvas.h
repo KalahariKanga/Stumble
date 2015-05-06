@@ -10,7 +10,7 @@ public:
 	Canvas();
 	Canvas(int, int);
 	~Canvas();
-	sf::Uint8* data;
+	sf::Uint8* data = nullptr;
 	void colorToData(int x, int y, sf::Color c);
 	int width, height;
 

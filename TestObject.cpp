@@ -6,7 +6,7 @@ TestObject::TestObject()
 {
 
 	
-	//sprite.loadFromFile("p1_front.png");
+	sprite.loadFromFile("p1_front.png");
 	position.x = rand() % WINDOW_WIDTH;
 	position.y = rand() % WINDOW_HEIGHT;
 	
@@ -56,7 +56,7 @@ void TestObject::onDraw(CanvasStore* c)
 	canvas->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
 	canvas->setDrawColour(sf::Color::Blue);
 	canvas->setDrawAlpha(1);
-	canvas->drawCanvas(&sprite, position.x, position.y);
+	//canvas->drawCanvas(&sprite, position.x, position.y);
 	
 	for (int x = 0; x < WINDOW_WIDTH; x+=64)
 		canvas->drawLineFunction(x, 0, x, WINDOW_HEIGHT, [&](float p){return 32 * sin((float)t / 30 + p*5 + x); },0);

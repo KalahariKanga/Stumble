@@ -31,9 +31,10 @@ void Canvas::colorToData(int x, int y, sf::Color c)
 
 void Canvas::loadFromFile(std::string fname)
 {
+	delete data;
 	sf::Image i;
 	i.loadFromFile(fname);
-	delete data;
+	
 	width = i.getSize().x;
 	height = i.getSize().y;
 	data = new sf::Uint8[width * height * 4];
