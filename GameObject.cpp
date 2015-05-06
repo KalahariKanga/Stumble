@@ -90,3 +90,24 @@ bool GameObject::checkTag(std::string tag)
 {
 	return (tags.find(tag) != tags.end());
 }
+
+void GameObject::with(std::string tag, std::function<void(GameObject*)> f)
+{
+	for (auto i : *store)
+		if (i->checkTag(tag))
+			f(i);
+}
+
+void GameObject::with(std::function<bool(GameObject*)> condition, std::function<void(GameObject*)> f)
+{
+	for (auto i : *store)
+		if (condition(i))
+			f(i);
+}
+
+GameObject* GameObject::find(std::string tag)
+{
+	for (auto i : *store)
+		if (i->checkTag(tag))
+			return i;
+}

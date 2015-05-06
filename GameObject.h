@@ -40,5 +40,8 @@ public:
 
 	void addTag(std::string tag);
 	bool checkTag(std::string tag);
+	void with(std::string tag, std::function<void(GameObject*)>);
+	void with(std::function<bool(GameObject*)>, std::function<void(GameObject*)>);
+	GameObject* find(std::string tag);
 };
 
