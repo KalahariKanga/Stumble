@@ -24,7 +24,7 @@ Game::Game()
 #ifndef _DEBUG
 	audioThread = new std::thread(&Game::audioThreadFunction,this);
 #endif
-
+	shader.loadFromFile("test.frag", sf::Shader::Fragment);
 	for (int c = 0; c < 100; c++)
 		keyDown[c] = 0;
 
@@ -123,7 +123,8 @@ void Game::update()
 	image.create(WINDOW_WIDTH, WINDOW_HEIGHT, screen->data);
 	tex.loadFromImage(image);
 	sprite.setTexture(tex);
-	window.draw(sprite);
+	window.draw(sprite, &shader);
+	//window.draw(sprite);
 	window.display();
 
 	//timing
@@ -143,15 +144,23 @@ void Game::audioThreadFunction()
 		
 		BASS_StreamPutData(stream, (void*)environment.getBuffer(), BUFFER_LENGTH*sizeof(short));
 		
+		for (auto c : store)
+			for (auto p : environment.players)
+				for (auto e : p->events)
+					c->onMidiEvent(e);
+		for (auto p : environment.players)
+			(p->events).clear();
 	}
+	
 }
 
 void Game::processMidiEvents()
 {
-	for (auto c : store)
+	/*for (auto c : store)
 		for (auto p : environment.players)
 			for (auto e : p->events)
 				c->onMidiEvent(e);
 	for (auto p : environment.players)
-		p->events.clear();
+		(p->events).clear();*/
+	
 }

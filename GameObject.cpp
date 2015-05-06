@@ -66,7 +66,7 @@ void GameObject::onKey(sf::Keyboard::Key)
 {
 
 }
-void GameObject::onMidiEvent(MidiEvent)
+void GameObject::onMidiEvent(MidiPlayerEvent)
 {
 
 }

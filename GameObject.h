@@ -31,7 +31,7 @@ public:
 	virtual void onKeyDown(sf::Keyboard::Key);
 	virtual void onKeyUp(sf::Keyboard::Key);
 	virtual void onKey(sf::Keyboard::Key);
-	virtual void onMidiEvent(MidiEvent e);
+	virtual void onMidiEvent(MidiPlayerEvent e);
 	void createInstance(GameObject*);
 	void destroyInstance(GameObject*);
 
