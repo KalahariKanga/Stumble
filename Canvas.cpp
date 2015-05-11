@@ -197,6 +197,15 @@ void Canvas::drawCircle(int x, int y, int r, bool outline)
 			drawLine(x + r*cos(c*jump), y + r*sin(c*jump), x + r*cos((c + 1)*jump), y + r*sin((c + 1)*jump));
 		}
 	}
+	else
+	{
+		for (int cx = x - r; cx < x + r; cx++)
+			for (int cy = y - r; cy < y + r; cy++)
+			{
+				if ((cx - x)*(cx - x) + (cy - y)*(cy - y) < r*r)
+					drawPoint(cx, cy);
+			}
+	}
 }
 
 void Canvas::drawRectangle(int x1, int y1, int x2, int y2, bool outline)
