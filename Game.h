@@ -35,7 +35,6 @@ public:
 	void addGameObject(GameObject*);
 	void update();
 	
-	CanvasStore canvasStore;//not sure it needs to be public
 
 
 	sf::Shader shader;

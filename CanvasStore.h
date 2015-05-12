@@ -2,9 +2,13 @@
 #include "Canvas.h"
 class DLL CanvasStore
 {
-public:
 	CanvasStore();
+	static CanvasStore* instance;
+public:
+	
 	~CanvasStore();
+
+	static CanvasStore* get();
 
 	std::map < std::string, Canvas* > map;
 	Canvas* addCanvas(std::string name, int width, int height);

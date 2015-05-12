@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CanvasStore.h"
 
+CanvasStore* CanvasStore::instance = nullptr;
 
 CanvasStore::CanvasStore()
 {
@@ -10,6 +11,13 @@ CanvasStore::CanvasStore()
 
 CanvasStore::~CanvasStore()
 {
+}
+
+CanvasStore* CanvasStore::get()
+{
+	if (!instance)
+		instance = new CanvasStore();
+	return instance;
 }
 
 Canvas* CanvasStore::addCanvas(std::string name, int width, int height)

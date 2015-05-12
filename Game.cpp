@@ -8,8 +8,8 @@ Game::Game()
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Window");
 	window.setKeyRepeatEnabled(0);
 	tex.setSmooth(0);
-	screen = canvasStore.addCanvas("screen", WINDOW_WIDTH, WINDOW_HEIGHT);
-	canvasStore.screen = screen;
+	screen = CanvasStore::get()->addCanvas("screen", WINDOW_WIDTH, WINDOW_HEIGHT);
+	CanvasStore::get()->screen = screen;
 	GameObject::store = &store;
 	GameObject::toCreate = &toCreate;
 	GameObject::toDestroy = &toDestroy;
@@ -24,11 +24,11 @@ Game::Game()
 #ifndef _DEBUG
 	audioThread = new std::thread(&Game::audioThreadFunction,this);
 #endif
-	shader.loadFromFile("test.frag", sf::Shader::Fragment);
+
 	for (int c = 0; c < 100; c++)
 		keyDown[c] = 0;
 
-
+	shader.loadFromFile("test.frag", sf::Shader::Fragment);
 }
 
 
@@ -51,7 +51,7 @@ void Game::update()
 	start = std::chrono::system_clock::now();
 
 	//clear canvas
-	canvasStore.clearScreen();
+	CanvasStore::get()->clearScreen();
 	
 	
 	//handle events
@@ -106,7 +106,7 @@ void Game::update()
 	
 	//draw objects
 	for (auto c : store)
-		c->onDraw(&canvasStore);
+		c->onDraw(CanvasStore::get());
 
 	//update object vector
 	store.insert(store.end(), toCreate.begin(), toCreate.end());

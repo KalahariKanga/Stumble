@@ -4,6 +4,7 @@
 #include "Vector2.h"
 #include "CanvasStore.h"
 #include "MaskRectangle.h"
+#include "MaskCircle.h"
 #include "Environment.h"
 class DLL GameObject
 {
