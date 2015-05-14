@@ -12,8 +12,8 @@ int main(int argc, _TCHAR* argv[])
 {
 	srand(time(0));
 	Game game;
-	TestObject t;
-	game.addGameObject(&t);
+	GameObject* t = new TestObject();;
+	game.addGameObject(t);
 	
 	while (1)
 		game.update();

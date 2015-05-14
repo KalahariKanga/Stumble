@@ -115,9 +115,12 @@ void Game::update()
 	{
 		auto it = std::find(store.begin(), store.end(), c);
 		if (it != store.end())
+		{
+			delete *it;
 			store.erase(it);
+		}
 	}
-	
+	toDestroy.clear();
 
 	//update screen
 	image.create(WINDOW_WIDTH, WINDOW_HEIGHT, screen->data);

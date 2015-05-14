@@ -11,7 +11,7 @@ class DLL GameObject
 	std::set<std::string> tags;
 public:
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 
 	Vector2 position, velocity, previousPosition;
 	static std::vector<GameObject*>* store;

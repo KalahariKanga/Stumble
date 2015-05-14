@@ -32,6 +32,7 @@ TestObject::TestObject()
 
 TestObject::~TestObject()
 {
+
 }
 
 void TestObject::onStep()
@@ -53,7 +54,7 @@ void TestObject::onDraw(CanvasStore* c)
 	Canvas* canvas = c->screen;
 	canvas->setDrawColour(col);
 	canvas->setDrawAlpha(1);
-	canvas->drawRectangle(position.x, position.y, position.x + 32, position.y + 32, 0);
+	canvas->drawCircle(position.x, position.y, 32, 0);
 	canvas->setDrawColour(sf::Color::Blue);
 	canvas->setDrawAlpha(1);
 	//canvas->drawCanvas(&sprite, position.x, position.y);
@@ -85,6 +86,8 @@ void TestObject::onKey(sf::Keyboard::Key k)
 		position.x -= spd;
 	if (k == sf::Keyboard::Right)
 		position.x += spd;
+	if (k == sf::Keyboard::D)
+		destroyInstance(this);
 }
 
 void TestObject::onKeyDown(sf::Keyboard::Key k)
