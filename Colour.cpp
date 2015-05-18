@@ -64,6 +64,7 @@ void Colour::setRGB(int r, int g, int b, int a)
 
 void Colour::setHSV(int h, int s, int v, int a)
 {
+	float r, g, b;
 	float H = (float)h / 255;
 	float S = (float)s / 255;
 	float V = (float)v / 255;
