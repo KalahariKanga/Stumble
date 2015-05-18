@@ -5,7 +5,7 @@ CanvasStore* CanvasStore::instance = nullptr;
 
 CanvasStore::CanvasStore()
 {
-	clearColour = sf::Color(0, 0, 0, 255);
+	clearColour = Colour(0, 0, 0, 255);
 }
 
 

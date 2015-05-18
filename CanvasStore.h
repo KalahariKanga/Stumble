@@ -15,7 +15,7 @@ public:
 	Canvas* addCanvas(std::string name, std::string fname);
 	Canvas* getCanvas(std::string name);
 	Canvas* screen = 0;
-	sf::Color clearColour;
+	Colour clearColour;
 	void clearScreen();
 };
 

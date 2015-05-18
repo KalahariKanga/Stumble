@@ -3,7 +3,7 @@
 class TestObject :
 	public GameObject
 {
-	sf::Color col;
+	Colour col;
 	Canvas sprite;
 public:
 	TestObject();

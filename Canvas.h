@@ -1,26 +1,27 @@
 #pragma once
 #include "core.h"
 #include "Vector2.h"
+#include "Colour.h"
 class DLL Canvas
 {
 	//sf::Image* image;
-	sf::Color drawColour;
+	Colour drawColour;
 	
 public:
 	Canvas();
 	Canvas(int, int);
 	~Canvas();
 	sf::Uint8* data = nullptr;
-	void colorToData(int x, int y, sf::Color c);
+	void colourToData(int x, int y, Colour c);
 	int width, height;
 
 	void loadFromFile(std::string fname);
 
-	sf::Color getPoint(int x, int y);
-	void setDrawColour(sf::Color);
+	Colour getPoint(int x, int y);
+	void setDrawColour(Colour);
 	void setDrawAlpha(float);
 	void drawPoint(int x, int y);
-	void drawPoint(int x, int y, sf::Color col);
+	void drawPoint(int x, int y, Colour col);
 	void drawLine(int x1, int y1, int x2, int y2);
 	void drawCircle(int x, int y, int r, bool outline);
 	void drawRectangle(int x1, int y1, int x2, int y2, bool outline);
@@ -28,8 +29,8 @@ public:
 	void drawCircleFunction(int x, int y, int r, std::function<float(float)> f);
 	void drawLineFunction(int x0, int y0, int x1, int y1, std::function<float(float)> f, bool fixEndpoints = 1);
 	void clear();
-	void clear(sf::Color);
+	void clear(Colour);
 
-	void applyPixelModifier(std::function<sf::Color(Canvas*,int,int)> f);
+	void applyPixelModifier(std::function<Colour(Canvas*, int, int)> f);
 };
 

@@ -9,7 +9,7 @@ Canvas::Canvas()
 
 Canvas::Canvas(int width, int height)
 {
-	drawColour = sf::Color::Red;
+	drawColour = Colour(255, 0, 0);
 	setDrawAlpha(255);
 	data = new sf::Uint8[width*height*4];
 	this->width = width;
@@ -21,7 +21,7 @@ Canvas::~Canvas()
 {
 }
 
-void Canvas::colorToData(int x, int y, sf::Color c)
+void Canvas::colourToData(int x, int y, Colour c)
 {
 	data[4 * (y*width + x)] = c.r;
 	data[4 * (y*width + x) + 1] = c.g;
@@ -45,14 +45,14 @@ void Canvas::loadFromFile(std::string fname)
 	}
 }
 
-sf::Color Canvas::getPoint(int x, int y)
+Colour Canvas::getPoint(int x, int y)
 {
 	if (x < 0 || x >= width || y < 0 || y >= height)
-		return sf::Color::Black; //TODO: wrap or extend or something
-	return sf::Color(data[4 * (y*width + x)], data[4 * (y*width + x) + 1], data[4 * (y*width + x) + 2], data[4 * (y*width + x) + 3]);
+		return Colour(0,0,0); //TODO: wrap or extend or something
+	return Colour(data[4 * (y*width + x)], data[4 * (y*width + x) + 1], data[4 * (y*width + x) + 2], data[4 * (y*width + x) + 3]);
 }
 
-void Canvas::setDrawColour(sf::Color c)
+void Canvas::setDrawColour(Colour c)
 {
 	drawColour = c;
 }
@@ -67,7 +67,7 @@ void Canvas::drawPoint(int x, int y)
 	drawPoint(x, y, drawColour);
 }
 
-void Canvas::drawPoint(int x, int y, sf::Color col)
+void Canvas::drawPoint(int x, int y, Colour col)
 {
 	if (x < 0 || x >= width || y < 0 || y >= height)
 		return;
@@ -75,8 +75,8 @@ void Canvas::drawPoint(int x, int y, sf::Color col)
 		return;
 	if (col.a < 255)
 	{
-		sf::Color dest = getPoint(x, y);
-		sf::Color out;
+		Colour dest = getPoint(x, y);
+		Colour out;
 		float ca = (float)col.a / 255;
 		float da = (float)dest.a / 255;
 		float oa = ca + da*(1 - ca);
@@ -94,11 +94,11 @@ void Canvas::drawPoint(int x, int y, sf::Color col)
 			out.g = 0;
 			out.b = 0;
 		}
-		colorToData(x, y, out);
+		colourToData(x, y, out);
 	}
 	else
 	{
-		colorToData(x, y, col);
+		colourToData(x, y, col);
 	}
 }
 
@@ -272,7 +272,7 @@ void Canvas::drawLineFunction(int x0, int y0, int x1, int y1, std::function<floa
 	}
 }
 
-void Canvas::clear(sf::Color c)
+void Canvas::clear(Colour c)
 {
 	for (int i = 0; i < width* height; i++)
 	{
@@ -286,7 +286,7 @@ void Canvas::clear()
 	clear(drawColour);
 }
 
-void Canvas::applyPixelModifier(std::function<sf::Color(Canvas*, int, int)> f)
+void Canvas::applyPixelModifier(std::function<Colour(Canvas*, int, int)> f)
 {
 	Canvas temp(width,height);
 	for (int cx = 0; cx < width; cx++)

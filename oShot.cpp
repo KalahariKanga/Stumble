@@ -21,9 +21,9 @@ void oShot::onStep()
 void oShot::onDraw(Canvas* c)
 {
 	int c1 = velocity.getDirection() * 42;
-	c->setDrawColour(sf::Color(255 * sin((float)t / 300), 255 - c1, (int)position.x % WINDOW_WIDTH));
+	c->setDrawColour(Colour(255 * sin((float)t / 300), 255 - c1, (int)position.x % WINDOW_WIDTH));
 	c->drawCircle(position.x, position.y, 4 + 4 * sin((float)t / 20), 1);
-	c->setDrawColour(sf::Color(c1, 255 - (int)position.y % WINDOW_HEIGHT, 255 * sin((float)t / 300)));
+	c->setDrawColour(Colour(c1, 255 - (int)position.y % WINDOW_HEIGHT, 255 * sin((float)t / 300)));
 	c->drawCircle(position.x, position.y, 4 + 4 * cos((float)t / 20), 1);
 }
 
