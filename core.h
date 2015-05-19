@@ -16,4 +16,5 @@
 
 #define DLL _declspec(dllexport)
 
-float clamp(float value, float min, float max);
+float DLL clamp(float value, float min, float max);
+float DLL randomRange(float a, float b);
